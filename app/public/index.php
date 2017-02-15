@@ -10,7 +10,6 @@ if (PHP_SAPI == 'cli-server') {
         return false;
     }
 }
-$settings = require __DIR__ . '/../config/core.php';
 $app = new \Rakshazi\SlimSuit\App([__DIR__ . '/../config/']);
 require __DIR__ . '/../config/dependencies.php';
 $app->run();

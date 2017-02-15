@@ -8,8 +8,8 @@ return [
             'entity' => '\App\Entity',
         ],
         'view' => [
-            'template_path' => __DIR__ . '/view/',
-            'cache_path' => __DIR__ . '/cache/',
+            'template_path' => __DIR__ . '/../view/',
+            'cache_path' => __DIR__ . '/../cache/',
         ],
         'database' => [
             'database_type' => 'mysql',
