@@ -14,7 +14,11 @@
         "vendor-dir": "app/vendor"
     },
 	"scripts": {
-        "start": "php -S 0.0.0.0:8080 -t app/public app/public/index.php"
+        "build": "@composer update -o",
+        "migrate": "phinx migrate -c app/config/phinx.php",
+        "seed": "phinx seed:run -c app/config/phinx.php",
+        "start": "$HOME/.composer/vendor/php-kit/php-server/bin/php-server start -a 127.0.0.1 -g -r app/public",
+        "stop": "$HOME/.composer/vendor/php-kit/php-server/bin/php-server stop"
 	}
 
 }
