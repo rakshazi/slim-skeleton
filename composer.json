@@ -1,9 +1,8 @@
 {
     "name": "rakshazi/slim-skeleton",
-    "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "rakshazi/slim-suit": "@dev"
+        "rakshazi/slim-suit": "@stable"
     },
     "autoload": {
         "psr-4": {
@@ -12,13 +11,5 @@
     },
     "config": {
         "vendor-dir": "app/vendor"
-    },
-	"scripts": {
-        "build": "@composer update -o",
-        "migrate": "phinx migrate -c app/config/phinx.php",
-        "seed": "phinx seed:run -c app/config/phinx.php",
-        "start": "$HOME/.composer/vendor/php-kit/php-server/bin/php-server start -a 127.0.0.1 -g -r app/public",
-        "stop": "$HOME/.composer/vendor/php-kit/php-server/bin/php-server stop"
-	}
-
+    }
 }

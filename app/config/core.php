@@ -9,14 +9,14 @@ return [
         ],
         'view' => [
             'template_path' => __DIR__ . '/../view/',
-            'cache_path' => __DIR__ . '/../cache/',
+            'cache_path' => in_array($_SERVER['HTTP_HOST'], ['localhost','127.0.0.1']) ? false : __DIR__ . '/../cache/',
         ],
         'database' => [
             'database_type' => 'mysql',
-            'database_name' => 'dbname',
-            'server' => '127.0.0.1',
-            'username' => 'root',
-            'password' => 'password',
+            'database_name' => 'slim_skeleton',
+            'server' => 'db',
+            'username' => 'slim',
+            'password' => 'slim',
             'charset' => 'utf8',
             'port' => 3306,
             'option' => [

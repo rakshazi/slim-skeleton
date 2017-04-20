@@ -1,0 +1,27 @@
+version: "3"
+services:
+    app:
+        build: .
+        networks:
+            - app
+        links:
+            - db
+        depends_on:
+            - db
+        tmpfs: /var/lib/nginx/html/app/cache
+        ports:
+            - 80:8080
+            - 443:8443
+    db:
+        image: k0st/alpine-mariadb
+        volumes:
+            - /var/lib/mysql:/var/lib/mysql
+        networks:
+            - app
+        environment:
+            - MYSQL_DATABASE=slim_skeleton
+            - MYSQL_USER=slim
+            - MYSQL_PASSWORD=slim
+            - MYSQL_RANDOM_ROOT_PASSWORD=1
+networks:
+    app:
