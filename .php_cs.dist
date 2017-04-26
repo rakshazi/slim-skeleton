@@ -1,0 +1,16 @@
+<?php
+$finder = \PhpCsFixer\Finder::create()
+    ->exclude('docker')
+    ->exclude('app/cache')
+    ->exclude('app/view')
+    ->exclude('app/public')
+    ->in(__DIR__);
+
+return \PhpCsFixer\Config::create()
+    ->setRules(array(
+        '@PSR1' => true,
+        '@PSR2' => true,
+        '@Symfony' => true,
+        'array_syntax' => ['syntax' => 'short'],
+    ))
+    ->setFinder($finder);

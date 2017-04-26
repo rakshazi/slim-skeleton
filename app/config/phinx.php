@@ -1,11 +1,12 @@
 <?php
-$core = require __DIR__ . '/core.php';
+
+$core = require __DIR__.'/core.php';
 $db = $core['settings']['database'];
 
 return [
     'paths' => [
-        'migrations' => __DIR__ . '/../migrations',
-        'seeds' => __DIR__ . '/../seeds'
+        'migrations' => __DIR__.'/../migrations',
+        'seeds' => __DIR__.'/../seeds',
     ],
 
     'environments' => [
