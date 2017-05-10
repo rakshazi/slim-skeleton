@@ -10,7 +10,7 @@ return [
         ],
         'view' => [
             'template_path' => __DIR__.'/../view/',
-            'cache_path' => in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1']) ? false : __DIR__.'/../cache/',
+            'cache_path' => in_array(explode(':', $_SERVER['HTTP_HOST'])[0], ['localhost', '127.0.0.1']) ? false : __DIR__.'/../cache/',
         ],
         'database' => [
             'database_type' => 'mysql',

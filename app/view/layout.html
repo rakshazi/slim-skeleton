@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Slim Suit - Slim framework swissknife</title>
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <style>.starter-template { margin-top: 70px }</style>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Slim Suit</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="starter-template">
+                {% for key, messages in flash() %}
+                {% for message in messages %}
+                <div class="alert alert-{{ key }} alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    {{ message|raw }}
+                </div>
+                {% endfor %}
+                {% endfor %}
+                {% block body %}
+                <h1>Oops!</h1>
+                <p class="lead">If you see this message, something went wrong.</p>
+                {% endblock %}
+            </div>
+
+        </div><!-- /.container -->
+        <script src="/components/jquery/jquery.min.js"></script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>
