@@ -1,6 +1,12 @@
 <?php
 
+$app->add(new \RKA\SessionMiddleware());
+
 $container = $app->getContainer();
+
+$container['session'] = function ($c) {
+    return new \RKA\Session();
+};
 
 //Error handlers
 $container['sentry'] = function ($c) use ($app) {

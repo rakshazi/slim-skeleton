@@ -3,7 +3,8 @@
     "prefer-stable": true,
     "require": {
         "rakshazi/slim-suit": "@stable",
-        "sentry/sentry": "^1.6"
+        "sentry/sentry": "^1.6",
+        "akrabat/rka-slim-session-middleware": "^2.0"
     },
     "autoload": {
         "psr-4": {
