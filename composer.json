@@ -4,7 +4,8 @@
     "require": {
         "rakshazi/slim-suit": "@stable",
         "sentry/sentry": "^1.6",
-        "akrabat/rka-slim-session-middleware": "^2.0"
+        "akrabat/rka-slim-session-middleware": "^2.0",
+        "monolog/monolog": "^1.22"
     },
     "autoload": {
         "psr-4": {

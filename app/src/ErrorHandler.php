@@ -30,6 +30,9 @@ class ErrorHandler
      */
     public function notFound(Request $request, Response $response): Response
     {
+        $this->app->getContainer()->logger
+            ->addInfo($request->getUri()->__toString(), ['code' => 404]);
+
         return $this->getResponse($response, 404);
     }
 
@@ -45,6 +48,8 @@ class ErrorHandler
     public function notAllowed(Request $request, Response $response, array $methods): Response
     {
         $message = 'Allowed methods: '.implode(', ', $methods);
+        $this->app->getContainer()->logger
+            ->addInfo($request->getUri()->__toString(), ['code' => 405, 'message' => $message]);
 
         return $this->getResponse($response, 500, $message);
     }
@@ -62,6 +67,8 @@ class ErrorHandler
     {
         $this->app->getContainer()->sentry->captureException($e);
         $message = $e->__toString();
+        $this->app->getContainer()->logger
+            ->addInfo($request->getUri()->__toString(), ['code' => 500, 'exception' => $e]);
 
         return $this->getResponse($response, 500, $message);
     }

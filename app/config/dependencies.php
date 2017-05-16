@@ -8,9 +8,16 @@ $container['session'] = function ($c) {
     return new \RKA\Session();
 };
 
+$container['logger'] = function ($c) {
+    $logger = new \Monolog\Logger('App');
+    $logger->pushHandler(new \Monolog\Handler\ErrorLogHandler());
+
+    return $logger;
+};
+
 //Error handlers
 $container['sentry'] = function ($c) use ($app) {
-    return new \Raven_Client($this->app->getConfig('sentry')['private_dsn']);
+    return new \Raven_Client($app->getConfig('sentry')['private_dsn']);
 };
 $container['appErrorHandler'] = function ($c) use ($app) {
     return new \App\ErrorHandler($app);
