@@ -3,8 +3,11 @@
 $container = $app->getContainer();
 
 //Error handlers
-$container['appErrorHandler'] = function ($c) {
-    return new \App\ErrorHandler();
+$container['sentry'] = function ($c) use ($app) {
+    return new \Raven_Client($this->app->getConfig('sentry')['private_dsn']);
+};
+$container['appErrorHandler'] = function ($c) use ($app) {
+    return new \App\ErrorHandler($app);
 };
 $container['errorHandler'] = function ($c) {
     return function ($request, $response, $e) use ($c) {

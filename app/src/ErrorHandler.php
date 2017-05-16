@@ -11,6 +11,16 @@ use Psr\Http\Message\ResponseInterface as Response;
 class ErrorHandler
 {
     /**
+     * @var \Rakshazi\SlimSuit\App
+     */
+    protected $app;
+
+    public function __construct(\Rakshazi\SlimSuit\App $app)
+    {
+        $this->app = $app;
+    }
+
+    /**
      * 404 error.
      *
      * @param Request  $request
@@ -50,6 +60,7 @@ class ErrorHandler
      */
     public function error500(Request $request, Response $response, \Throwable $e): Response
     {
+        $this->app->getContainer()->sentry->captureException($e);
         $message = $e->__toString();
 
         return $this->getResponse($response, 500, $message);

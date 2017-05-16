@@ -2,7 +2,8 @@
     "name": "rakshazi/slim-skeleton",
     "prefer-stable": true,
     "require": {
-        "rakshazi/slim-suit": "@stable"
+        "rakshazi/slim-suit": "@stable",
+        "sentry/sentry": "^1.6"
     },
     "autoload": {
         "psr-4": {
