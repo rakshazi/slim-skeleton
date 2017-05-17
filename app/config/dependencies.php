@@ -17,7 +17,10 @@ $container['logger'] = function ($c) {
 
 //Error handlers
 $container['sentry'] = function ($c) use ($app) {
-    return new \Raven_Client($app->getConfig('sentry')['private_dsn']);
+    $client = new \Raven_Client($app->getConfig('sentry')['private_dsn']);
+    $client->setAppPath('/var/lib/nginx/html/app'); //constant from docker container
+
+    return $client;
 };
 $container['appErrorHandler'] = function ($c) use ($app) {
     return new \App\ErrorHandler($app);
