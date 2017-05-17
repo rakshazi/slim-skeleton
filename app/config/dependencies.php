@@ -18,7 +18,8 @@ $container['logger'] = function ($c) {
 //Error handlers
 $container['sentry'] = function ($c) use ($app) {
     $client = new \Raven_Client($app->getConfig('sentry')['private_dsn']);
-    $client->setAppPath('/var/lib/nginx/html/app'); //constant from docker container
+    $client->setAppPath('/var/lib/nginx/html/app/'); //constant from docker container
+    $client->setPrefixies(['/var/lib/nginx/html/app/']);
 
     return $client;
 };
