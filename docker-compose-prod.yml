@@ -9,9 +9,11 @@ services:
         depends_on:
             - db
         tmpfs: /var/lib/nginx/html/app/cache
-        ports:
-            - 80:8080
-            - 443:8443
+        environment:
+            - VIRTUAL_HOST=your.site
+            - LETSENCRYPT_HOST=your.site
+            - LETSENCRYPT_EMAIL=mail@your.site
+            - VIRTUAL_PORT=8080
     db:
         image: k0st/alpine-mariadb
         volumes:
@@ -23,5 +25,31 @@ services:
             - MYSQL_USER=slim
             - MYSQL_PASSWORD=slim
             - MYSQL_RANDOM_ROOT_PASSWORD=1
+    proxy:
+        image: jwilder/nginx-proxy
+        container_name: nginx-proxy
+        labels:
+            com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: 'true'
+        networks:
+            - app
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./docker/proxy/certs:/etc/nginx/certs:ro
+            - ./docker/proxy/vhost.d:/etc/nginx/vhost.d
+            - ./docker/proxy/html:/usr/share/nginx/html
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+    ssl_companion:
+        image: jrcs/letsencrypt-nginx-proxy-companion
+        volumes:
+            - ./docker/proxy/certs:/etc/nginx/certs
+            - ./docker/proxy/vhost.d:/etc/nginx/vhost.d
+            - ./docker/proxy/html:/usr/share/nginx/html
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+        networks:
+            - app
+        depends_on:
+            - proxy
 networks:
     app:
