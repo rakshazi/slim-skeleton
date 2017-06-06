@@ -1,5 +1,6 @@
 composer.lock
 .php_cs.cache
+docker/proxy/*/*
 !app/cache/.gitkeep
 app/cache
 app/vendor
