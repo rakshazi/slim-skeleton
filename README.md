@@ -31,6 +31,7 @@ Composer dependencies, migrations, and DB will be created automaticaly
 * ORM - **Medoo**: [medoo.in/doc](https://medoo.in/doc)
 * Migrations, seeds - **Phinx**: [docs.phinx.org](http://docs.phinx.org/en/latest/)
 * Exception handling - **Sentry.io**: [docs.sentry.io](https://docs.sentry.io)
+* Session storage - **Redis**: [redis.io](https://redis.io)
 
 ### Frontend
 * Rendering engine - **Twig**: [twig.sensiolabs.org](https://twig.sensiolabs.org/) + [slim/flash](https://github.com/slimphp/Slim-Flash) + [kanellov/slim-twig-flash](https://github.com/kanellov/slim-twig-flash)
