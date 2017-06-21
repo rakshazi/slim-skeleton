@@ -1,16 +1,16 @@
 # Install
 
-### Skeleton
+## Project
 
 ```bash
 composer create-project rakshazi/slim-skeleton
 ```
 
-### Docker
+## Docker
 
-> **NOTE**: this docker image is production ready and works only with SSL
+> **NOTE**: this docker image is production ready and works only with SSL for production and with SSL and without it for dev env.
 
-1. Change `your.site` domain in `docker-compose.yml` to your domain
+1. Change `your.site` domain in `docker-compose.yml` and `docker-compose-prod.yml` to your domain
 4. Run docker-compose:
 
 ```bash
@@ -23,11 +23,19 @@ docker-compose -f docker-compose-prod.yml up -d
 
 Composer dependencies, migrations, and DB will be created automaticaly
 
-**Dockerfile** vs **Dockerfile.quay**
+## Docker - which image to choose?
 
-_Dockerfile_ should be used when you build base image yourself
+### `rakshazi/slim-skeleton` (Dockerfile)
 
-_Dockerfile.quay_ should be used if you want to use provided base image (production-ready, without composer on container start) instead of building it yourself, example Dockerfile in that case:
+> **@deprecated**: that file will be removed in future, but you still can use it
+
+Must be used for development only. Includes composer with dependencies in it. `composer update` runs on container start
+
+### `quay.io/rakshazi/slim-skeleton` (Dockerfile.quay)
+
+Full-featured image **without composer** and its dependencies. `composer update` should be run on build stage.
+
+Example of Dockerfile for your usage (if you dont want to build base image yourself):
 
 ```Dockerfile
 FROM composer/composer:alpine
@@ -36,7 +44,7 @@ RUN composer update --ignore-platform-reqs --no-ansi --no-dev \
         --no-interaction --no-progress --no-scripts --optimize-autoloader \
         -d /app
 
-FROM rakshazi/slim-skeleton
+FROM quay.io/rakshazi/slim-skeleton
 MAINTAINER Your Name <your.name@your.site>
 COPY --from=0 /app/ /var/lib/nginx/html/
 ```
