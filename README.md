@@ -23,6 +23,24 @@ docker-compose -f docker-compose-prod.yml up -d
 
 Composer dependencies, migrations, and DB will be created automaticaly
 
+**Dockerfile** vs **Dockerfile.quay**
+
+_Dockerfile_ should be used when you build base image yourself
+
+_Dockerfile.quay_ should be used if you want to use provided base image (production-ready, without composer on container start) instead of building it yourself, example Dockerfile in that case:
+
+```Dockerfile
+FROM composer/composer:alpine
+COPY ./ /app
+RUN composer update --ignore-platform-reqs --no-ansi --no-dev \
+        --no-interaction --no-progress --no-scripts --optimize-autoloader \
+        -d /app
+
+FROM rakshazi/slim-skeleton
+MAINTAINER Your Name <your.name@your.site>
+COPY --from=0 /app/ /var/lib/nginx/html/
+```
+
 # Documentation
 
 ### Backend
