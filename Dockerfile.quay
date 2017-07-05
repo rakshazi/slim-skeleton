@@ -1,20 +1,18 @@
 FROM alpine:latest
 MAINTAINER Nikita Chernyi <developer.nikus@gmail.com>
 
-RUN apk --no-cache add nginx s6 su-exec php7 php7-fpm php7-json php7-ctype php7-mbstring php7-curl \
-    php7-session php7-ldap php7-pdo_mysql php7-phar php7-openssl php7-redis php7-xml php7-simplexml && \
+RUN apk --no-cache add php7 php7-fpm php7-json php7-ctype php7-mbstring php7-curl \
+    php7-session php7-ldap php7-pdo_mysql php7-openssl php7-redis php7-xml php7-simplexml && \
     rm -rf /var/cache/apk/* /tmp/*
 
-COPY ./docker/nginx.conf /etc/nginx/nginx.conf
 COPY ./docker/php-fpm.conf /etc/php7/php-fpm.d/www.conf
-COPY ./docker/run-clear.sh /usr/local/bin/run.sh
+COPY ./docker/run.sh /usr/local/bin/run.sh
 COPY ./docker/phinx.sh /usr/local/bin/phinx
-COPY ./docker/s6.d /etc/s6.d
 
-RUN chmod +x /usr/local/bin/* /etc/s6.d/*/* /etc/s6.d/.s6-svscan/*
+RUN chmod +x /usr/local/bin/*
 
 VOLUME /var/lib/nginx/html
 
-EXPOSE 8080
+EXPOSE 9000
 
 CMD ["run.sh"]

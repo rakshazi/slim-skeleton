@@ -23,14 +23,6 @@ docker-compose -f docker-compose-prod.yml up -d
 
 Composer dependencies, migrations, and DB will be created automaticaly
 
-## Docker - which image to choose?
-
-### `rakshazi/slim-skeleton` (Dockerfile)
-
-> **@deprecated**: that file will be removed in future, but you still can use it
-
-Must be used for development only. Includes composer with dependencies in it. `composer update` runs on container start
-
 ### `quay.io/rakshazi/slim-skeleton` (Dockerfile.quay)
 
 Full-featured image **without composer** and its dependencies. `composer update` should be run on build stage.

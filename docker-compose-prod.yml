@@ -1,25 +1,19 @@
 version: "3"
 services:
     app:
-        build: .
-        networks:
-            - app
-        links:
-            - db
-        depends_on:
-            - db
-        tmpfs: /var/lib/nginx/html/app/cache
+        image: quay.io/rakshazi/slim-skeleton
+        depends_on: ['db','redis']
+        tmpfs:
+            - /var/lib/nginx/html/app/cache:exec,mode=777
         environment:
             - VIRTUAL_HOST=your.site
+            - VIRTUAL_PORT=9000
+            - VIRTUAL_PROTO=fastcgi
+            - VIRTUAL_ROOT=/var/lib/nginx/html/app/public
             - LETSENCRYPT_HOST=your.site
             - LETSENCRYPT_EMAIL=mail@your.site
-            - VIRTUAL_PORT=8080
     db:
         image: k0st/alpine-mariadb
-        volumes:
-            - /var/lib/mysql:/var/lib/mysql
-        networks:
-            - app
         environment:
             - MYSQL_DATABASE=slim_skeleton
             - MYSQL_USER=slim
@@ -28,20 +22,17 @@ services:
 
     redis:
         image: redis:alpine
-        networks:
-            - app
 
     proxy:
         image: jwilder/nginx-proxy:alpine
         container_name: nginx-proxy
         labels:
             com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: 'true'
-        networks:
-            - app
         ports:
             - "80:80"
             - "443:443"
         volumes:
+            - ./docker/proxy/nginx.tmpl:/app/nginx.tmpl
             - ./docker/proxy/certs:/etc/nginx/certs:ro
             - ./docker/proxy/vhost.d:/etc/nginx/vhost.d
             - ./docker/proxy/html:/usr/share/nginx/html
@@ -53,9 +44,4 @@ services:
             - ./docker/proxy/vhost.d:/etc/nginx/vhost.d
             - ./docker/proxy/html:/usr/share/nginx/html
             - /var/run/docker.sock:/var/run/docker.sock:ro
-        networks:
-            - app
-        depends_on:
-            - proxy
-networks:
-    app:
+        depends_on: ['proxy']
