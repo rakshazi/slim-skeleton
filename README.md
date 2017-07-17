@@ -46,7 +46,7 @@ RUN composer update --ignore-platform-reqs --no-ansi --no-dev \
 
 FROM quay.io/rakshazi/slim-skeleton
 MAINTAINER Your Name <your.name@your.site>
-COPY --from=0 /app/ /var/lib/nginx/html/
+COPY --from=0 /app/ /var/www/
 ```
 
 # Documentation

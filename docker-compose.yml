@@ -1,27 +1,18 @@
-version: "3"
+version: "2"
 services:
     app:
         build: .
-        networks:
-            - app
-        links:
-            - db
-        depends_on:
-            - db
+        depends_on: ['db']
         volumes:
-            - .:/var/lib/nginx/html
-        tmpfs: /var/lib/nginx/html/app/cache
+            - .:/var/www
+        tmpfs: /var/www/app/cache
         environment:
-            - VIRTUAL_HOST=your.site
-            - LETSENCRYPT_HOST=your.site
-            - LETSENCRYPT_EMAIL=mail@your.site
+            - VIRTUAL_HOST=127.0.0.1
             - VIRTUAL_PORT=8080
     db:
         image: k0st/alpine-mariadb
         volumes:
             - ./app/cache/mysql:/var/lib/mysql
-        networks:
-            - app
         environment:
             - MYSQL_DATABASE=slim_skeleton
             - MYSQL_USER=slim
@@ -30,16 +21,13 @@ services:
 
     redis:
         image: redis:alpine
-        networks:
-            - app
 
     proxy:
         image: jwilder/nginx-proxy:alpine
         container_name: nginx-proxy
         labels:
             com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: 'true'
-        networks:
-            - app
+        environment: ['DEFAULT_HOST=127.0.0.1']
         ports:
             - "80:80"
             - "443:443"
@@ -55,9 +43,4 @@ services:
             - ./docker/proxy/vhost.d:/etc/nginx/vhost.d
             - ./docker/proxy/html:/usr/share/nginx/html
             - /var/run/docker.sock:/var/run/docker.sock:ro
-        networks:
-            - app
-        depends_on:
-            - proxy
-networks:
-    app:
+        depends_on: ['proxy']
