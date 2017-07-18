@@ -3,8 +3,12 @@
     "prefer-stable": true,
     "require": {
         "rakshazi/slim-suit": "@stable",
+        "slim/twig-view": "^2.2",
+        "slim/flash": "^0.2.0",
+        "kanellov/slim-twig-flash": "^0.2.0",
         "sentry/sentry": "^1.6",
         "akrabat/rka-slim-session-middleware": "^2.0",
+        "components/bootstrap": "^3.3",
         "monolog/monolog": "^1.22"
     },
     "autoload": {
