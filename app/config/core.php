@@ -13,6 +13,7 @@ return [
             'cache_path' => in_array(explode(':', $_SERVER['HTTP_HOST'])[0], ['localhost', '127.0.0.1']) ? false : __DIR__.'/../cache/',
         ],
         'database' => [
+            'class' => '\Medoo\Medoo',
             'database_type' => 'mysql',
             'database_name' => 'slim_skeleton',
             'server' => 'db',
