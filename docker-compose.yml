@@ -44,3 +44,8 @@ services:
             - ./docker/proxy/html:/usr/share/nginx/html
             - /var/run/docker.sock:/var/run/docker.sock:ro
         depends_on: ['proxy']
+    update:
+        image: composer/composer:alpine
+        command: ["update", "--ignore-platform-reqs", "--no-ansi", "--no-dev", "--no-interaction", "--no-progress", "--no-scripts", "--optimize-autoloader", "-d", "/app"]
+        volumes:
+          - ./:/app
