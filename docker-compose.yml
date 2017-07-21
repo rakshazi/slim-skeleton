@@ -19,9 +19,6 @@ services:
             - MYSQL_PASSWORD=slim
             - MYSQL_RANDOM_ROOT_PASSWORD=1
 
-    redis:
-        image: redis:alpine
-
     proxy:
         image: jwilder/nginx-proxy:alpine
         container_name: nginx-proxy
